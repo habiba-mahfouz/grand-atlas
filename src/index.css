@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@theme {
+  --font-playfair: 'Playfair Display', serif;
+  --font-lato: 'Lato', sans-serif;
+}
+/* @plugin "daisyui";  */
