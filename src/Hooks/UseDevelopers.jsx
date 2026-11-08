@@ -7,21 +7,30 @@ export default function UseDevelopers(id) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  async function getDevelopers() {
-
-    try {
-      const response = await api.get(id ? `/developer/${id}` : "/developer");
-      if (id) setDeveloper(response.data);
-      else setDevelopers(response.data);
-      setLoading(false);
-    } catch {
-      setError(true);
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    let active = true;
+
+    async function getDevelopers() {
+      try {
+        const response = await api.get(id ? `/developer/${id}` : "/developer");
+        if (active) {
+          if (id) setDeveloper(response.data);
+          else setDevelopers(response.data);
+          setLoading(false);
+        }
+      } catch {
+        if (active) {
+          setError(true);
+          setLoading(false);
+        }
+      }
+    }
+
     getDevelopers();
+
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   return { developers, developer, loading, error };

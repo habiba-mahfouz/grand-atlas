@@ -26,11 +26,10 @@ export default function Developers() {
         <h1 className="px-4 py-10 text-center">No Developers Found</h1>
       )}
 
-      <div className="mx-[37px] mt-[60px] grid items-start gap-[16px] grid-cols-3">
+      <div className="mx-4 sm:mx-6 lg:mx-[37px] mt-8 sm:mt-12 lg:mt-[60px] mb-16 sm:mb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-5 sm:gap-6">
         {developers.map((d) => (
-          <div key={d.id} className="min-w-0 mb-[140px]">
+          <div key={d.id} className="min-w-0">
             <Card
-              key={d.id}
               badge={true}
               content={d.name_en.toLowerCase()}
               image={d.images[0]}

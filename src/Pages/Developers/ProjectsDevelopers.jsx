@@ -35,7 +35,7 @@ export default function DisplayDeveloper() {
                 c1={"5 Units"}
                 c2={"7 GYMs"}
                 bexist={true}
-                iexist={true}
+                texist={true}
                 c3={"500 m"}
                 s1={"size-[29px]"}
                 s2={"size-[31px]"}

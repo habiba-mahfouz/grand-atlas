@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 
 export function SubHero({c,image}) {
   return (
-    <div>
+    <div className="w-full">
         <Title
         content={c}
         width={"w-[164px]"}
-        css={`mb-[48px] mt-[40px]`}
+        css={`mb-6 sm:mb-8 md:mb-12 mt-6 sm:mt-8 md:mt-10 px-4`}
         />
-        <div className="mx-[37px] mb-[61px] overflow-hidden rounded-[24px] shadow-[0px_4px_12px_rgba(0,0,0,0.15)]">
+        <div className="mx-4 sm:mx-6 lg:mx-[37px] mb-8 sm:mb-12 lg:mb-[61px] overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-[24px] shadow-[0px_4px_12px_rgba(0,0,0,0.15)]">
           <img
-            className="block h-[525px] w-full object-cover"
+            className="block h-[220px] sm:h-[340px] md:h-[440px] lg:h-[525px] w-full object-cover"
             src={image}
             alt={c}
           />

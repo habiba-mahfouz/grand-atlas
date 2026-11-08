@@ -31,23 +31,34 @@ export default function Units() {
   const [status, setStatus] = useState("");
   const [price, setPrice] = useState("");
   const [filteredUnits, setFilteredUnits] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   const navigate = useNavigate();
 
-  async function getAllUnits() {
-    try {
-      const response = await api.get("/unit?sort=asc");
-      setAllUnits(response.data);
-      setFilteredUnits(response.data);
-      setLoading(false);
-    } catch {
-      setError(true);
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    let active = true;
+
+    async function getAllUnits() {
+      try {
+        const response = await api.get("/unit?sort=asc");
+        if (active) {
+          setAllUnits(response.data);
+          setFilteredUnits(response.data);
+          setLoading(false);
+        }
+      } catch {
+        if (active) {
+          setError(true);
+          setLoading(false);
+        }
+      }
+    }
+
     getAllUnits();
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   function handleSearch() {
@@ -66,6 +77,75 @@ export default function Units() {
     setFilteredUnits(result);
   }
 
+  const renderSearchInput = () => (
+    <div className="relative h-12 sm:h-14 min-w-0 w-full">
+      <input
+        type="text"
+        placeholder="Search by title"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="h-full w-full rounded-md border border-[#CEC7C7] bg-white pl-3 pr-10 font-lato text-sm font-bold text-[#847D7D] placeholder:text-sm placeholder:font-bold placeholder:text-[#BEBEBE] focus:outline-none sm:text-base"
+      />
+      <img
+        src={searchIcon}
+        alt=""
+        className="absolute right-3 top-1/2 size-5 sm:size-6 -translate-y-1/2"
+      />
+    </div>
+  );
+
+  const renderFilterOptions = () => (
+    <>
+      <UnitOption
+        value={bedrooms}
+        onChange={setBedrooms}
+        placeholder="Bedrooms"
+        options={getOptions(allunits, "bedrooms", (value) => `${value} bedrooms`)}
+      />
+
+      <UnitOption
+        value={developer}
+        onChange={setDeveloper}
+        placeholder="Developers"
+        options={getOptions(allunits, "developerName_en")}
+      />
+
+      <UnitOption
+        value={zone}
+        onChange={setZone}
+        placeholder="Zones"
+        options={getOptions(allunits, "zoneName_en")}
+      />
+
+      <UnitOption
+        value={projects}
+        onChange={setProjects}
+        placeholder="Projects"
+        options={getOptions(allunits, "projectName_en")}
+      />
+
+      <UnitOption
+        value={status}
+        onChange={setStatus}
+        placeholder="Status"
+        options={getOptions(allunits, "status", (value) =>
+          value.toLowerCase() === "available"
+            ? "Available"
+            : value.charAt(0) + value.slice(1).toLowerCase(),
+        )}
+      />
+
+      <UnitOption
+        value={price}
+        onChange={setPrice}
+        placeholder="Any Price"
+        options={getOptions(allunits, "price", (value) =>
+          `${Number(value).toLocaleString("en-US")} EGP`,
+        )}
+      />
+    </>
+  );
+
   return (
     <>
       <Hero
@@ -76,82 +156,46 @@ export default function Units() {
         }
         icons={true}
       />
-      <div
-        id="select"
-        className="mx-4 grid grid-cols-1 gap-2 rounded-lg  p-2 sm:mx-6 sm:grid-cols-2 lg:mx-[37px] lg:grid-cols-4 lg:gap-3 lg:p-3 xl:mt-[180px] xl:grid-cols-7"
-      >
-        <div className="relative h-14 min-w-0 w-full">
-          <input
-            type="text"
-            placeholder="Search by title"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="h-full w-full rounded-md border border-[#CEC7C7] bg-white pl-3 pr-10 font-lato text-sm font-bold text-[#847D7D] placeholder:text-sm placeholder:font-bold placeholder:text-[#BEBEBE] focus:outline-none sm:text-base"
-          />
-          <img
-            src={searchIcon}
-            alt=""
-            className="absolute right-3 top-1/2 size-6 -translate-y-1/2"
-          />
+
+      <div className="mx-4 sm:mx-6 lg:mx-[37px] mt-8 sm:mt-12 lg:mt-16">
+        <div className="hidden xl:grid xl:grid-cols-7 gap-2.5 sm:gap-3">
+          {renderSearchInput()}
+          {renderFilterOptions()}
         </div>
 
-        <UnitOption
-        value={bedrooms}
-        onChange={setBedrooms}
-        placeholder="Bedrooms"
-        options={getOptions(allunits, "bedrooms", (value) => `${value} bedrooms`)}
-        />
+        <div className="xl:hidden">
+          <div className="flex flex-row items-center gap-2.5 sm:gap-3 mb-3">
+            <div className="flex-1 min-w-0">
+              {renderSearchInput()}
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowFilters((prev) => !prev)}
+              className={`h-12 sm:h-14 px-4 sm:px-6 shrink-0 rounded-md border font-lato text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                showFilters
+                  ? "bg-[#8E1616] text-white border-[#8E1616]"
+                  : "bg-white text-[#8E1616] border-[#8E1616] hover:bg-[#8E1616]/10"
+              }`}
+            >
+              {showFilters ? "Filter Options" : "Filter Options"}
+            </button>
+          </div>
 
-        <UnitOption
-        value={developer}
-        onChange={setDeveloper}
-        placeholder="Developers"
-        options={getOptions(allunits, "developerName_en")}
-        />
+          {showFilters && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3 mb-3">
+              {renderFilterOptions()}
+            </div>
+          )}
+        </div>
 
-        <UnitOption
-        value={zone}
-        onChange={setZone}
-        placeholder="Zones"
-        options={getOptions(allunits, "zoneName_en")}
+        <Button
+          content={"Search"}
+          onClick={handleSearch}
+          css={
+            "mx-auto mt-4 sm:mt-6 mb-8 sm:mb-12 h-11 sm:h-12 w-full max-w-[415px] rounded-lg bg-gradient-to-r from-[#8E1616] to-[#C34B4B] text-base font-bold text-[#EEEEEE] hover:opacity-95 transition-opacity cursor-pointer"
+          }
         />
-
-        <UnitOption
-        value={projects}
-        onChange={setProjects}
-        placeholder="Projects"
-        options={getOptions(allunits, "projectName_en")}
-        />
-
-        <UnitOption
-        value={status}
-        onChange={setStatus}
-        placeholder="Status"
-        options={getOptions(allunits, "status", (value) =>
-          value.toLowerCase() === "available"
-            ? "Available"
-            : value.charAt(0) + value.slice(1).toLowerCase(),
-        )}
-        />
-
-        <UnitOption
-        value={price}
-        onChange={setPrice}
-        placeholder="Any Price"
-        options={getOptions(allunits, "price", (value) =>
-          `${Number(value).toLocaleString("en-US")} EGP`,
-        )}
-        />
-
       </div>
-
-      <Button
-        content={"Search"}
-        onClick={handleSearch}
-        css={
-          "mx-auto mt-4 mb-13 h-12 w-[calc(100%-32px)] max-w-[415px] rounded-lg bg-gradient-to-r from-[#8E1616] to-[#C34B4B] text-base font-bold text-[#EEEEEE] sm:mt-8 sm:mb-20 sm:w-[calc(100%-48px)] sm:text-lg lg:mt-[61px] lg:mb-[132px]"
-        }
-      />
 
       {loading && <h1 className="px-4 py-10 text-center">Loading....</h1>}
 

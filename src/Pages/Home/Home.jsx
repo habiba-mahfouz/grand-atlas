@@ -34,13 +34,13 @@ export default function Home() {
         icons={true}
       />
 
-      <section className="h-[252px] mt-[123px] mx-[37px]">
+      <section className="mt-12 sm:mt-20 lg:mt-[123px] mx-4 sm:mx-6 lg:mx-[37px]">
         <Title
           content={"Benchmarks of Success"}
           width={"w-[164px]"}
-          css={"mb-[56px]"}
+          css={"mb-8 sm:mb-12 lg:mb-[56px]"}
         />
-        <div className="h-[143px] gap-[22px] flex flex-row justify-between itemd-center">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-[22px] items-stretch">
           <Benchmark
             icon={units}
             number={"48"}
@@ -60,19 +60,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="h-[791px] mt-[180px] mx-[37px]">
+      <section className="mt-16 sm:mt-24 lg:mt-[180px] mx-4 sm:mx-6 lg:mx-[37px]">
         <Title
           content={"About Grand Atlas"}
-          width={"w-[164px] "}
-          css={"mb-[65px]"}
+          width={"w-[164px]"}
+          css={"mb-8 sm:mb-12 lg:mb-[65px]"}
         />
-        <section className="flex flex-row items-start gap-[60px]">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-[60px]">
           <img
-            className="h-[667px] w-[673px] shrink-0 rounded-tl-[100px] rounded-tr-[100px] border-[5px] border-[#8E1616] object-cover"
+            className="h-[320px] sm:h-[450px] lg:h-[667px] w-full max-w-[500px] lg:max-w-none lg:w-[50%] shrink-0 rounded-t-[40px] sm:rounded-t-[60px] lg:rounded-tl-[100px] lg:rounded-tr-[100px] lg:rounded-b-none border-4 lg:border-[5px] border-[#8E1616] object-cover shadow-md"
             src={about}
+            alt="About Grand Atlas"
           />
-          <div className="flex gap-[125px] flex-col justify-between">
-            <p className="w-[450px] pt-[24px] font-lato text-[18px] pb-[90px] text-[#333]">
+          <div className="flex flex-col justify-between items-start w-full lg:w-[50%]">
+            <p className="w-full pt-2 lg:pt-6 font-lato text-sm sm:text-base lg:text-[18px] pb-6 sm:pb-8 lg:pb-[90px] text-[#333] leading-relaxed">
               We began with a singular, uncompromising vision: to bridge the gap
               between world-class architecture and the individuals who define
               our global culture. We recognized that for the discerning client,
@@ -91,21 +92,21 @@ export default function Home() {
               content="Know More"
               icon={arrow}
               css={
-                "h-[47px] w-[258px] rounded-[8px] text-[20px] font-bold font-lato text-white bg-gradient-to-r from-[#8E1616] to-[#C34B4B] "
+                "h-[47px] w-full sm:w-[258px] rounded-[8px] text-[18px] sm:text-[20px] font-bold font-lato text-white bg-gradient-to-r from-[#8E1616] to-[#C34B4B] hover:opacity-95 transition-opacity"
               }
             />
           </div>
-        </section>
+        </div>
       </section>
 
-      <section className="h-[529px] mt-[180px] mx-[37px]">
+      <section className="mt-16 sm:mt-24 lg:mt-[180px] mx-4 sm:mx-6 lg:mx-[37px]">
         <Title
           content={"Hand-Selected Masterpieces"}
           width={"w-[237px]"}
-          css={" mb-[39px]"}
+          css={"mb-6 sm:mb-8 lg:mb-[39px]"}
         />
-        <div className="w-full min-w-0 overflow-x-auto [scrollbar-width:none] mb-[20px]">
-          <div className="h-[358px] w-max gap-[20px] flex flex-row">
+        <div className="w-full min-w-0 overflow-x-auto [scrollbar-width:none] mb-6 sm:mb-8">
+          <div className="w-max gap-3 sm:gap-4 lg:gap-[20px] flex flex-row pb-2">
             <Masterpieces
               image={masterpiece1}
               content={"01. Palm Hills Office No.3"}
@@ -131,22 +132,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="h-[594px] mt-[180px]">
+      <section className="mt-16 sm:mt-24 lg:mt-[180px]">
         <Title
           content={"Strategic Locations"}
           width={"w-[164px]"}
-          css={"mb-[29px] mx-[37px]"}
+          css={"mb-6 sm:mb-8 lg:mb-[29px] mx-4 sm:mx-6 lg:mx-[37px]"}
         />
-        <img className="h-[512px] w-full bg-center bg-cover" src={map} />
+        <img className="h-[260px] sm:h-[380px] md:h-[460px] lg:h-[512px] w-full object-cover" src={map} alt="Strategic Locations" />
       </section>
 
-      <section className="h-[577px] mt-[180px] mx-[37px] mb-[140px]">
+      <section className="mt-16 sm:mt-24 lg:mt-[180px] mx-4 sm:mx-6 lg:mx-[37px] mb-16 sm:mb-24 lg:mb-[140px]">
         <Title
           content={"Future Landmarks"}
           width={"w-[237px]"}
-          css={"mb-[38px]"}
+          css={"mb-6 sm:mb-8 lg:mb-[38px]"}
         />
-        <div className="grid items-start gap-[20px] grid-cols-3 mb-[22px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-4 sm:gap-5 lg:gap-[20px] mb-8">
           {developers.map((d) => (
             <Card
               key={d.id}

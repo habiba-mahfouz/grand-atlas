@@ -10,19 +10,29 @@ export default function DisplayUnit() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  async function getUnit() {
+  useEffect(() => {
+    let active = true;
+
+    async function getUnit() {
       try {
         const response = await api.get(`/unit/${id}`);
+        if (active) {
           setUnit(response.data);
           setLoading(false);
+        }
       } catch {
+        if (active) {
           setError(true);
           setLoading(false);
+        }
       }
     }
 
-  useEffect(() => {
     getUnit();
+
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   if (loading) return <h1 className="px-4 py-10 text-center">Loading....</h1>;
