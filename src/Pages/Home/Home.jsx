@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { Benchmark, Masterpieces } from "./HomeComponents.jsx";
 
 export default function Home() {
-  const { developers } = UseDevelopers();
+  const { developers, loading, error } = UseDevelopers();
   const navigate = useNavigate();
 
   return (
@@ -138,7 +138,11 @@ export default function Home() {
           width={"w-[164px]"}
           css={"mb-6 sm:mb-8 lg:mb-[29px] mx-4 sm:mx-6 lg:mx-[37px]"}
         />
-        <img className="h-[260px] sm:h-[380px] md:h-[460px] lg:h-[512px] w-full object-cover" src={map} alt="Strategic Locations" />
+        <img
+          className="h-[260px] sm:h-[380px] md:h-[460px] lg:h-[512px] w-full object-cover"
+          src={map}
+          alt="Strategic Locations"
+        />
       </section>
 
       <section className="mt-16 sm:mt-24 lg:mt-[180px] mx-4 sm:mx-6 lg:mx-[37px] mb-16 sm:mb-24 lg:mb-[140px]">
@@ -147,6 +151,15 @@ export default function Home() {
           width={"w-[237px]"}
           css={"mb-6 sm:mb-8 lg:mb-[38px]"}
         />
+
+        {loading && <h1 className="px-4 py-10 text-center">Loading....</h1>}
+
+        {error && <h1 className="px-4 py-10 text-center">Fail to Load</h1>}
+
+        {!loading && !error && developers.length === 0 && (
+          <h1 className="px-4 py-10 text-center">No Developers Found</h1>
+        )}
+
         <div className="w-full min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-6 sm:mb-8">
           <div className="w-max gap-3 sm:gap-4 lg:gap-[20px] flex flex-row pb-2 pt-1 px-1">
             {developers.map((d) => (

@@ -26,8 +26,8 @@ export default function Contact() {
 
       <div className="flex flex-col lg:flex-row mt-8 sm:mt-16 lg:mt-[118px] mx-4 sm:mx-6 lg:mx-[37px] mb-12 sm:mb-20 lg:mb-[100px] gap-10 lg:gap-16 justify-between items-start">
         <div className="w-full lg:max-w-[55%] xl:max-w-[620px]">
-          <h2 className="text-2xl sm:text-3xl lg:text-[32px] font-playfair font-semibold text-black mb-3 sm:mb-[10px]">
-            Contact Information
+          <h2 className="text-xl sm:text-3xl lg:text-[32px] font-playfair font-semibold text-black mb-3 sm:mb-[10px]">
+          Contact Information
           </h2>
           <p className="text-sm sm:text-base lg:text-[20px] font-lato text-[#847D7D] w-full mb-6 sm:mb-[24px] leading-relaxed">
             Our team is available for private consultations and off-market
